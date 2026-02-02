@@ -21,18 +21,16 @@ const KachuaMap = () => {
   };
 
   return (
-    <div className="flex flex-col items-center p-5 bg-gray-50 min-h-screen relative">
+    <div className="relative flex flex-col items-center p-5 bg-gray-50 min-h-screen relative">
       <h1 className="text-2xl font-bold mb-8 text-slate-800">
         কচুয়া ইন্টারেক্টিভ ম্যাপ
       </h1>
 
       <div className=" w-full max-w-5xl bg-white p-10 rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
-        
-        
-        <div className="fixed top-10 right-20 z-50 pointer-events-none">
+        <div className="fixed top-10 right-20 md:top-28 md:right-32 z-50 pointer-events-none">
           {activeUnion ? (
-            <div className="w-64 bg-white/95 backdrop-blur shadow-2xl rounded-xl border p-5 animate-in fade-in slide-in-from-top-4 duration-300 pointer-events-auto">
-              <h2 className="text-lg font-bold border-b pb-2 mb-3 text-emerald-600">
+            <div className="w-64 bg-white/95 backdrop-blur shadow-md rounded-xl border border-gray-600 p-2.5 md:p-5 animate-in fade-in slide-in-from-top-4 duration-300 pointer-events-auto">
+              <h2 className=" md:text-lg font-bold border-b md:pb-2 mb-3 text-emerald-600">
                 {activeUnion.name}
               </h2>
               <p className="text-sm text-gray-600 mb-4">
@@ -42,14 +40,14 @@ const KachuaMap = () => {
                 </span>
               </p>
 
-              <div className="space-y-3">
+              <div className="space-y-3 ">
                 {Object.entries(activeUnion.groups).map(([key, group]) => (
                   <div key={key}>
-                    <div className="flex justify-between text-[10px] font-bold uppercase text-gray-500 mb-1">
+                    <div className="flex justify-between text-[10px] font-bold uppercase text-gray-500 mb-1 ">
                       <span>{group.label}</span>
                       <span>{group.count.toLocaleString()}</span>
                     </div>
-                    <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                    <div className="w-full  bg-gray-100 h-1.5 rounded-full overflow-hidden">
                       <div
                         className={`${group.color} h-full`}
                         style={{
@@ -62,36 +60,33 @@ const KachuaMap = () => {
               </div>
             </div>
           ) : (
-            <div className="w-64 p-4 bg-gray-100/50 rounded-xl border border-dashed border-gray-300 text-center text-gray-400 text-sm">
+            <div className="w-64 p-4 bg-gray-100/50 rounded-xl border border-dashed border-gray-300 text-center text-gray-400 text-sm mt-12">
               ইউনিয়নের বিস্তারিত দেখতে মাউস রাখুন
             </div>
           )}
         </div>
 
-        <svg
-          viewBox="0 0 600 600"
-          className="w-full h-auto"
-        >
+        <svg viewBox="0 0 600 600" className="w-full h-auto mt-28 md:mt-0">
           {unionsData.map((union) => (
             <g key={union.id} transform={offsets[union.id] || "translate(0,0)"}>
-              {/* ইউনিয়ন পাথ */}
               <path
+                key={union.id}
                 d={union.pathData}
-                className="fill-slate-200 stroke-white stroke-[1.5] hover:fill-emerald-400 transition-all duration-300 cursor-pointer"
+                style={{ fill: union.colorCode || "#E2E8F0" }}
+                className="stroke-white stroke-[1.5] hover:fill-emerald-400 transition-all duration-300 cursor-pointer group "
                 onMouseEnter={() => setActiveUnion(union)}
                 onMouseLeave={() => setActiveUnion(null)}
               />
-              
-              {/* ইউনিয়ন নাম (পিন) - টেক্সট পজিশন অ্যাডজাস্ট করতে x এবং y মান পরিবর্তন করুন */}
+
               <text
-                x="70" 
-                y="40"
+                x="70"
+                y="44"
                 fontSize="8"
                 fontWeight="bold"
                 textAnchor="middle"
-                className="fill-slate-600 pointer-events-none select-none"
+                className="fill-slate-600 z-50  select-none group-hover:fill-slate-800"
               >
-                {union.name} {/* শুধু প্রথম অংশ দেখাবে জায়গা বাঁচাতে */}
+                {union.name}
               </text>
             </g>
           ))}
