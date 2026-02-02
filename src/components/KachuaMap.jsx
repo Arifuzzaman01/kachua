@@ -60,7 +60,7 @@ const KachuaMap = () => {
               </div>
             </div>
           ) : (
-            <div className="w-64 p-4 bg-gray-100/50 rounded-xl border border-dashed border-gray-300 text-center text-gray-400 text-sm mt-12">
+            <div className="w-64 p-4 bg-gray-100/50 rounded-xl border border-dashed border-gray-300 text-center text-gray-400 text-sm mt-12 md:mt-0">
               ইউনিয়নের বিস্তারিত দেখতে মাউস রাখুন
             </div>
           )}
